@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "snapthaihub",
+      "runtimeExecutable": "/Users/dianaruk/.local/node/bin/node",
+      "runtimeArgs": ["scripts/dev-launcher.mjs"],
+      "port": 3777
+    }
+  ]
+}

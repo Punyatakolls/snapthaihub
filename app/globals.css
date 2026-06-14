@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Bangkok night-market palette */
+  --chili: #e8500f;
+  --chili-deep: #c43d08;
+  --mango: #ffb30f;
+  --mango-soft: #ffd97a;
+  --taxi-pink: #f0428c;
+  --jade: #0f7b6c;
+  --cream: #fff8f0;
+  --cream-deep: #fcefdd;
+  --night: #1c1410;
+  --night-soft: #2b201a;
+  --ink: #2d1f16;
+  --ink-soft: #6b5d52;
+
+  --background: var(--cream);
+  --foreground: var(--ink);
 }
 
 @theme inline {
+  --color-chili: var(--chili);
+  --color-chili-deep: var(--chili-deep);
+  --color-mango: var(--mango);
+  --color-mango-soft: var(--mango-soft);
+  --color-taxi-pink: var(--taxi-pink);
+  --color-jade: var(--jade);
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-night: var(--night);
+  --color-night-soft: var(--night-soft);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-kanit);
+  --font-sans: var(--font-anuphan);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-anuphan), system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-kanit), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--mango);
+  color: var(--ink);
+}
+
+button,
+[role="button"],
+a {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--taxi-pink);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Marquee for the hero ticker */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+/* Dotted shipping route line */
+@keyframes dash-travel {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.animate-route {
+  animation: dash-travel 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

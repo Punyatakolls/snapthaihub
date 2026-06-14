@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Snap Thai Hub 🇹🇭
 
-## Getting Started
+**Anything from Thailand, shipped to your door.** Customers snap a photo,
+paste a link, or describe any Thai product — the team sources it in Bangkok,
+sends one all-in quote, and ships worldwide with tracking.
 
-First, run the development server:
+Built with Next.js 16, Tailwind CSS 4, Framer Motion, SQLite, and Stripe.
+
+## Pages
+
+| Route | What it does |
+|---|---|
+| `/` | Marketing landing page (hero, how-it-works, categories, reviews, FAQ) |
+| `/order` | Special-order wizard: add items by link / photo upload / description |
+| `/track` | Order tracking with animated status timeline |
+| `/pay/[code]` | Quote review + secure checkout |
+| `/admin` | Password-protected dashboard: quote orders, update status, add tracking |
+
+## Running locally
+
+Node.js is installed at `~/.local/node` (on PATH via `.zshrc`).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev        # development — http://localhost:3000
+npm run build      # production build
+npm start          # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Configuration (`.env.local`)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `ADMIN_PASSWORD` — required for `/admin` (currently set to a starter value; change it).
+- `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` — leave unset for **demo mode**
+  (payments simulated). Add real keys from the
+  [Stripe dashboard](https://dashboard.stripe.com/apikeys) to take live payments.
+  Point a Stripe webhook for `checkout.session.completed` at `/api/webhook`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How orders flow
 
-## Learn More
+1. Customer submits the wizard → order created with code `SNTH-XXXXXX`, status **received**.
+2. You open `/admin`, review items (links/photos), and **send a quote** (USD) → status **quoted**.
+3. Customer sees the quote at `/pay/[code]` (or via `/track`) and pays → status **paid**.
+4. You update status as you shop (**purchasing**) and ship (**shipped** + carrier/tracking number).
+5. Customer follows it all on `/track`.
 
-To learn more about Next.js, take a look at the following resources:
+## Data
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+SQLite database and uploaded photos live in `./data/` (gitignored).
+Back this folder up; it is the order book.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Notes
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The Claude preview sandbox can't run `next dev` (Turbopack worker spawning
+  is blocked); `scripts/dev-launcher.mjs` therefore serves the production
+  build (`next start`). Run `npm run build` first when using the preview.
+  From a normal terminal, `npm run dev` works fine.
