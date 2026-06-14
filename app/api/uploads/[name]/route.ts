@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs/promises";
+import { UPLOADS_DIR } from "@/lib/paths";
 
 const TYPES: Record<string, string> = {
   ".jpg": "image/jpeg",
@@ -19,7 +20,7 @@ export async function GET(
   if (!/^[a-f0-9]{24}\.(jpg|png|webp|gif|heic)$/.test(name)) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  const filePath = path.join(process.cwd(), "data", "uploads", name);
+  const filePath = path.join(UPLOADS_DIR, name);
   try {
     const data = await fs.readFile(filePath);
     return new NextResponse(new Uint8Array(data), {

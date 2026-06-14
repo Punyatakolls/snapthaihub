@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs/promises";
 import crypto from "crypto";
+import { UPLOADS_DIR } from "@/lib/paths";
 
 const MAX_SIZE = 8 * 1024 * 1024; // 8MB
 const ALLOWED: Record<string, string> = {
@@ -32,11 +33,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const dir = path.join(process.cwd(), "data", "uploads");
-  await fs.mkdir(dir, { recursive: true });
+  await fs.mkdir(UPLOADS_DIR, { recursive: true });
   const name = `${crypto.randomBytes(12).toString("hex")}${ext}`;
   await fs.writeFile(
-    path.join(dir, name),
+    path.join(UPLOADS_DIR, name),
     Buffer.from(await file.arrayBuffer())
   );
 

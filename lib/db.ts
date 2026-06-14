@@ -1,11 +1,11 @@
 import Database from "better-sqlite3";
 import path from "path";
 import fs from "fs";
+import { DATA_DIR } from "./paths";
 
-const dataDir = path.join(process.cwd(), "data");
-if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
-const db = new Database(path.join(dataDir, "snapthaihub.db"));
+const db = new Database(path.join(DATA_DIR, "snapthaihub.db"));
 db.pragma("journal_mode = WAL");
 
 db.exec(`

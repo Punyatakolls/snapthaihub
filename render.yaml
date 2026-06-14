@@ -1,0 +1,32 @@
+# Render Blueprint for Snap Thai Hub
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Deploy: in the Render dashboard choose "New +" -> "Blueprint", connect the
+# GitHub repo Punyatakolls/snapthaihub, and Render reads this file.
+# A persistent disk is required so the SQLite DB and uploaded photos survive
+# restarts/redeploys — disks are available on paid instance types only.
+services:
+  - type: web
+    name: snapthaihub
+    runtime: node
+    plan: starter # required for persistent disk (~$7/mo); free tier has no disk
+    region: singapore # closest Render region to Thailand
+    buildCommand: npm ci && npm run build
+    startCommand: npx next start -p $PORT
+    healthCheckPath: /
+    autoDeploy: true
+    disk:
+      name: snapthaihub-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATA_DIR
+        value: /var/data
+      - key: ADMIN_PASSWORD
+        sync: false # set a strong value in the Render dashboard
+      - key: STRIPE_SECRET_KEY
+        sync: false # optional — leave unset to run payments in demo mode
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false # optional — only needed with live Stripe
