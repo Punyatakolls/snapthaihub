@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import db from "./db";
+import { getDb } from "./db";
 
 export const STATUSES = [
   "received",
@@ -63,6 +63,7 @@ export function createOrder(input: {
   notes?: string;
   items: OrderItemInput[];
 }): Order {
+  const db = getDb();
   let code = generateCode();
   while (db.prepare("SELECT 1 FROM orders WHERE code = ?").get(code)) {
     code = generateCode();
@@ -101,6 +102,7 @@ export function createOrder(input: {
 }
 
 function attachItems(order: Omit<Order, "items">): Order {
+  const db = getDb();
   const items = db
     .prepare("SELECT * FROM order_items WHERE order_id = ?")
     .all(order.id) as OrderItem[];
@@ -108,6 +110,7 @@ function attachItems(order: Omit<Order, "items">): Order {
 }
 
 export function getOrderById(id: number): Order | null {
+  const db = getDb();
   const row = db.prepare("SELECT * FROM orders WHERE id = ?").get(id) as
     | Omit<Order, "items">
     | undefined;
@@ -115,6 +118,7 @@ export function getOrderById(id: number): Order | null {
 }
 
 export function getOrderByCode(code: string): Order | null {
+  const db = getDb();
   const row = db
     .prepare("SELECT * FROM orders WHERE code = ? COLLATE NOCASE")
     .get(code.trim()) as Omit<Order, "items"> | undefined;
@@ -122,6 +126,7 @@ export function getOrderByCode(code: string): Order | null {
 }
 
 export function listOrders(): Order[] {
+  const db = getDb();
   const rows = db
     .prepare("SELECT * FROM orders ORDER BY created_at DESC")
     .all() as Omit<Order, "items">[];
@@ -129,6 +134,7 @@ export function listOrders(): Order[] {
 }
 
 export function setQuote(code: string, quoteCents: number): Order | null {
+  const db = getDb();
   db.prepare(
     `UPDATE orders SET quote_cents = ?, status = 'quoted', updated_at = datetime('now')
      WHERE code = ? AND status IN ('received', 'quoted')`
@@ -141,6 +147,7 @@ export function setStatus(
   status: OrderStatus,
   tracking?: { carrier?: string; number?: string }
 ): Order | null {
+  const db = getDb();
   db.prepare(
     `UPDATE orders SET status = ?,
        tracking_carrier = COALESCE(?, tracking_carrier),
