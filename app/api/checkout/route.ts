@@ -21,7 +21,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const origin = req.nextUrl.origin;
+  // Prefer the canonical site URL for Stripe redirects so success/cancel
+  // always return to the real domain; fall back to the request origin.
+  const origin = process.env.APP_URL?.replace(/\/+$/, "") || req.nextUrl.origin;
   const stripe = getStripe();
 
   if (!stripe) {
