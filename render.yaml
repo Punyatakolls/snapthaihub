@@ -12,7 +12,7 @@ services:
     plan: starter # required for persistent disk (~$7/mo); free tier has no disk
     region: singapore # closest Render region to Thailand
     buildCommand: npm ci && npm run build
-    startCommand: npx next start -p $PORT
+    startCommand: npm run start
     healthCheckPath: /
     autoDeploy: true
     disk:
