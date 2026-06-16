@@ -23,7 +23,10 @@ export async function POST(req: NextRequest) {
 
   // Prefer the canonical site URL for Stripe redirects so success/cancel
   // always return to the real domain; fall back to the request origin.
-  const origin = process.env.APP_URL?.replace(/\/+$/, "") || req.nextUrl.origin;
+  // Normalize: strip trailing slashes and ensure an explicit https scheme
+  // (Stripe rejects URLs without one).
+  let origin = process.env.APP_URL?.replace(/\/+$/, "") || req.nextUrl.origin;
+  if (!/^https?:\/\//i.test(origin)) origin = `https://${origin}`;
   const stripe = getStripe();
 
   if (!stripe) {
