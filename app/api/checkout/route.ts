@@ -36,26 +36,33 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const session = await stripe.checkout.sessions.create({
-    mode: "payment",
-    customer_email: order.email,
-    line_items: [
-      {
-        price_data: {
-          currency: order.currency,
-          product_data: {
-            name: `Snap Thai Hub order ${order.code}`,
-            description: `${order.items.length} item(s) sourced in Thailand, shipped to ${order.country}`,
+  try {
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      customer_email: order.email,
+      line_items: [
+        {
+          price_data: {
+            currency: order.currency,
+            product_data: {
+              name: `Snap Thai Hub order ${order.code}`,
+              description: `${order.items.length} item(s) sourced in Thailand, shipped to ${order.country}`,
+            },
+            unit_amount: order.quote_cents,
           },
-          unit_amount: order.quote_cents,
+          quantity: 1,
         },
-        quantity: 1,
-      },
-    ],
-    metadata: { order_code: order.code },
-    success_url: `${origin}/pay/${order.code}?paid=1`,
-    cancel_url: `${origin}/pay/${order.code}?canceled=1`,
-  });
+      ],
+      metadata: { order_code: order.code },
+      success_url: `${origin}/pay/${order.code}?paid=1`,
+      cancel_url: `${origin}/pay/${order.code}?canceled=1`,
+    });
 
-  return NextResponse.json({ url: session.url });
+    return NextResponse.json({ url: session.url });
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Could not start checkout.";
+    console.error("Stripe checkout error:", message);
+    return NextResponse.json({ error: message }, { status: 502 });
+  }
 }
