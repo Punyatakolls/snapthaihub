@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import type { Order } from "./orders";
+import { SITE_URL } from "./site";
 
 const FROM = process.env.EMAIL_FROM || "Snap Thai Hub <onboarding@resend.dev>";
 const OWNER = process.env.OWNER_EMAIL;
@@ -79,13 +80,12 @@ function button(href: string, label: string): string {
   return `<a href="${href}" style="display:inline-block;background:#e8500f;color:#fff;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:10px;margin:8px 0">${label}</a>`;
 }
 
-// Base URL for links inside emails. For deliverability, links should share
-// the sending domain, so derive it from EMAIL_FROM (e.g. hello@snapthaihub.com
-// → https://snapthaihub.com). Falls back to the request-derived URL when the
-// sender is the resend.dev test address (which isn't our site).
+// Links in emails always point at the public website (SITE_URL), never the
+// sending domain. This matters when sending from a subdomain like
+// mail.snapthaihub.com — that host doesn't serve the site, but its root
+// domain still aligns with the links for deliverability.
 function linkBase(fallback: string): string {
-  const domain = FROM.match(/@([a-z0-9.-]+\.[a-z]{2,})>?\s*$/i)?.[1];
-  return domain && domain !== "resend.dev" ? `https://${domain}` : fallback;
+  return SITE_URL || fallback;
 }
 
 /** Alert to the shop owner when a new order request arrives. */
