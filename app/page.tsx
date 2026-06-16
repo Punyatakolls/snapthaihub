@@ -95,7 +95,7 @@ const jsonLd = {
       name: SITE_NAME,
       url: SITE_URL,
       description: SITE_DESCRIPTION,
-      email: "hello@snapthaihub.com",
+      email: "home@snapthaihub.com",
       areaServed: "Worldwide",
       address: {
         "@type": "PostalAddress",

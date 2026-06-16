@@ -30,7 +30,11 @@ export default function Footer() {
         <div>
           <p className="font-display font-bold text-mango mb-3">Contact</p>
           <ul className="space-y-2 text-cream/80">
-            <li>hello@snapthaihub.com</li>
+            <li>
+              <a href="mailto:home@snapthaihub.com" className="hover:text-mango transition-colors">
+                home@snapthaihub.com
+              </a>
+            </li>
             <li>LINE: @snapthaihub</li>
             <li>Bangkok, Thailand 🇹🇭</li>
           </ul>
