@@ -21,12 +21,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Prefer the canonical site URL for Stripe redirects so success/cancel
-  // always return to the real domain; fall back to the request origin.
-  // Normalize: strip trailing slashes and ensure an explicit https scheme
-  // (Stripe rejects URLs without one).
-  let origin = process.env.APP_URL?.replace(/\/+$/, "") || req.nextUrl.origin;
-  if (!/^https?:\/\//i.test(origin)) origin = `https://${origin}`;
+  // Base for Stripe success/cancel redirects: the host the customer is
+  // actually browsing, forced to https. This always resolves (they're on
+  // it right now), so redirects never break — no dependency on a separately
+  // configured APP_URL, which is easy to mistype.
+  const requestHost = req.headers.get("host") || req.nextUrl.host;
+  const origin = `https://${requestHost}`;
   const stripe = getStripe();
 
   if (!stripe) {
