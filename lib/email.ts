@@ -79,12 +79,22 @@ function button(href: string, label: string): string {
   return `<a href="${href}" style="display:inline-block;background:#e8500f;color:#fff;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:10px;margin:8px 0">${label}</a>`;
 }
 
+// Base URL for links inside emails. For deliverability, links should share
+// the sending domain, so derive it from EMAIL_FROM (e.g. hello@snapthaihub.com
+// → https://snapthaihub.com). Falls back to the request-derived URL when the
+// sender is the resend.dev test address (which isn't our site).
+function linkBase(fallback: string): string {
+  const domain = FROM.match(/@([a-z0-9.-]+\.[a-z]{2,})>?\s*$/i)?.[1];
+  return domain && domain !== "resend.dev" ? `https://${domain}` : fallback;
+}
+
 /** Alert to the shop owner when a new order request arrives. */
 export async function emailOwnerNewOrder(order: Order, baseUrl: string): Promise<void> {
   if (!OWNER) {
     console.log("[email] OWNER_EMAIL not set — skipping new-order alert");
     return;
   }
+  const base = linkBase(baseUrl);
   await send({
     to: OWNER,
     subject: `🛒 New order ${order.code} — ${order.name} (${order.country})`,
@@ -93,13 +103,14 @@ export async function emailOwnerNewOrder(order: Order, baseUrl: string): Promise
       `<p><strong>${escapeHtml(order.name)}</strong> (${escapeHtml(order.email)}) — shipping to ${escapeHtml(order.country)}</p>
        <ul style="padding-left:18px">${itemsList(order)}</ul>
        ${order.notes ? `<p style="color:#6b5d52"><em>Notes: ${escapeHtml(order.notes)}</em></p>` : ""}
-       ${button(`${baseUrl}/admin`, "Open admin → quote it")}`
+       ${button(`${base}/admin`, "Open admin → quote it")}`
     ),
   });
 }
 
 /** Confirmation to the customer that we received their request. */
 export async function emailCustomerReceived(order: Order, baseUrl: string): Promise<void> {
+  const base = linkBase(baseUrl);
   await send({
     to: order.email,
     subject: `We got your request — ${order.code}`,
@@ -108,13 +119,14 @@ export async function emailCustomerReceived(order: Order, baseUrl: string): Prom
       `<p>Thanks, ${escapeHtml(order.name)}! We've received your request and our Bangkok team will send an all-in quote within 24 hours.</p>
        <p>Your order code: <strong style="font-size:18px">${order.code}</strong></p>
        <ul style="padding-left:18px">${itemsList(order)}</ul>
-       ${button(`${baseUrl}/track?code=${order.code}`, "Track your order")}`
+       ${button(`${base}/track?code=${order.code}`, "Track your order")}`
     ),
   });
 }
 
 /** Customer notification that their quote is ready to pay. */
 export async function emailCustomerQuote(order: Order, baseUrl: string): Promise<void> {
+  const base = linkBase(baseUrl);
   await send({
     to: order.email,
     subject: `Your quote is ready — ${order.code} (${money(order)})`,
@@ -123,20 +135,21 @@ export async function emailCustomerQuote(order: Order, baseUrl: string): Promise
       `<p>Good news, ${escapeHtml(order.name)} — we can source your items! Here's your all-in total (products, service & tracked shipping to ${escapeHtml(order.country)}):</p>
        <p style="font-size:28px;font-weight:800;color:#1c1410">${money(order)}</p>
        <p>Approve and pay securely below — no further charges.</p>
-       ${button(`${baseUrl}/pay/${order.code}`, "Review & pay")}`
+       ${button(`${base}/pay/${order.code}`, "Review & pay")}`
     ),
   });
 }
 
 /** Customer + owner confirmation that payment succeeded. */
 export async function emailPaid(order: Order, baseUrl: string): Promise<void> {
+  const base = linkBase(baseUrl);
   await send({
     to: order.email,
     subject: `Payment confirmed — ${order.code}`,
     html: layout(
       "Payment confirmed — kob khun ka! 🙏",
       `<p>Thank you, ${escapeHtml(order.name)}! We've received your payment of <strong>${money(order)}</strong> and our team is shopping for your items right away.</p>
-       ${button(`${baseUrl}/track?code=${order.code}`, "Track your order")}`
+       ${button(`${base}/track?code=${order.code}`, "Track your order")}`
     ),
   });
   if (OWNER) {
@@ -146,7 +159,7 @@ export async function emailPaid(order: Order, baseUrl: string): Promise<void> {
       html: layout(
         `Payment received: ${order.code}`,
         `<p><strong>${escapeHtml(order.name)}</strong> paid ${money(order)}. Time to purchase & ship.</p>
-         ${button(`${baseUrl}/admin`, "Open admin")}`
+         ${button(`${base}/admin`, "Open admin")}`
       ),
     });
   }
@@ -154,6 +167,7 @@ export async function emailPaid(order: Order, baseUrl: string): Promise<void> {
 
 /** Customer notification that their order shipped, with tracking. */
 export async function emailCustomerShipped(order: Order, baseUrl: string): Promise<void> {
+  const base = linkBase(baseUrl);
   const tracking =
     order.tracking_number
       ? `<p>Carrier: <strong>${escapeHtml(order.tracking_carrier ?? "")}</strong><br>Tracking #: <strong>${escapeHtml(order.tracking_number)}</strong></p>`
@@ -165,7 +179,7 @@ export async function emailCustomerShipped(order: Order, baseUrl: string): Promi
       "Your order is on its way ✈️",
       `<p>Great news, ${escapeHtml(order.name)} — your order has shipped from Bangkok to ${escapeHtml(order.country)}.</p>
        ${tracking}
-       ${button(`${baseUrl}/track?code=${order.code}`, "Track your order")}`
+       ${button(`${base}/track?code=${order.code}`, "Track your order")}`
     ),
   });
 }
