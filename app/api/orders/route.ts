@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createOrder, OrderItemInput } from "@/lib/orders";
+import { emailCustomerReceived, emailOwnerNewOrder } from "@/lib/email";
 
 const MAX_ITEMS = 20;
 
@@ -66,6 +67,10 @@ export async function POST(req: NextRequest) {
     notes: notes?.trim(),
     items,
   });
+
+  const baseUrl = `https://${req.headers.get("host") || req.nextUrl.host}`;
+  await emailCustomerReceived(order, baseUrl);
+  await emailOwnerNewOrder(order, baseUrl);
 
   return NextResponse.json({ code: order.code }, { status: 201 });
 }

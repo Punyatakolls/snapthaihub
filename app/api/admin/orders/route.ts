@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { listOrders, setQuote, setStatus, STATUSES, OrderStatus } from "@/lib/orders";
+import { emailCustomerQuote, emailCustomerShipped } from "@/lib/email";
 
 function authorized(req: NextRequest): boolean {
   const expected = process.env.ADMIN_PASSWORD;
@@ -40,8 +41,11 @@ export async function PATCH(req: NextRequest) {
   }
 
   let order = null;
+  let didQuote = false;
+  let didShip = false;
   if (typeof body.quote_cents === "number" && body.quote_cents > 0) {
     order = setQuote(body.code, Math.round(body.quote_cents));
+    didQuote = true;
   }
   if (body.status) {
     if (!STATUSES.includes(body.status as OrderStatus)) {
@@ -51,6 +55,7 @@ export async function PATCH(req: NextRequest) {
       carrier: body.tracking_carrier,
       number: body.tracking_number,
     });
+    if (body.status === "shipped") didShip = true;
   }
 
   if (!order) {
@@ -59,5 +64,10 @@ export async function PATCH(req: NextRequest) {
       { status: 404 }
     );
   }
+
+  const baseUrl = `https://${req.headers.get("host") || req.nextUrl.host}`;
+  if (didQuote && order.status === "quoted") await emailCustomerQuote(order, baseUrl);
+  if (didShip) await emailCustomerShipped(order, baseUrl);
+
   return NextResponse.json({ order });
 }

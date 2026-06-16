@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { markPaid } from "@/lib/orders";
 import { getStripe } from "@/lib/stripe";
+import { emailPaid } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   const stripe = getStripe();
@@ -23,7 +24,13 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const code = event.data.object.metadata?.order_code;
-    if (code) markPaid(code);
+    if (code) {
+      const order = markPaid(code);
+      if (order) {
+        const baseUrl = `https://${req.headers.get("host") || req.nextUrl.host}`;
+        await emailPaid(order, baseUrl);
+      }
+    }
   }
 
   return NextResponse.json({ received: true });
