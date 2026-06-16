@@ -31,8 +31,8 @@ export default function Footer() {
           <p className="font-display font-bold text-mango mb-3">Contact</p>
           <ul className="space-y-2 text-cream/80">
             <li>
-              <a href="mailto:home@snapthaihub.com" className="hover:text-mango transition-colors">
-                home@snapthaihub.com
+              <a href="mailto:hello@snapthaihub.com" className="hover:text-mango transition-colors">
+                hello@snapthaihub.com
               </a>
             </li>
             <li>LINE: @snapthaihub</li>
