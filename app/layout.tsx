@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Kanit, Anuphan } from "next/font/google";
 import "./globals.css";
+import { SITE_URL, SITE_NAME, SITE_TAGLINE, SITE_DESCRIPTION } from "@/lib/site";
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -15,9 +16,45 @@ const anuphan = Anuphan({
 });
 
 export const metadata: Metadata = {
-  title: "Snap Thai Hub — Anything from Thailand, shipped to you",
-  description:
-    "Snap a photo, paste a link, or describe any product from Thailand — 7-Eleven snacks, pharmacy finds, market treasures — and we buy it and ship it to your door, worldwide.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "Thai products",
+    "ship from Thailand",
+    "buy Thai snacks online",
+    "Thai grocery delivery",
+    "7-Eleven Thailand",
+    "Thai personal shopper",
+    "special order Thailand",
+    "Thai proxy buying",
+    "Mama noodles",
+    "Snail White",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  category: "shopping",
 };
 
 export default function RootLayout({
