@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import CupMark from "./CupMark";
 
 const links = [
   { href: "/order", label: "Start an order" },
@@ -20,14 +19,11 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur border-b-4 border-night">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center gap-2 font-display text-xl font-extrabold tracking-tight">
-          <CupMark className="w-9 h-9 shrink-0" />
-          <span>
-            <span className="text-chili">SNAP</span>
-            <span className="text-ink">THAI</span>
-            <span className="bg-mango px-1.5 py-0.5 ml-1 rotate-2 inline-block rounded-sm border-2 border-night">
-              HUB
-            </span>
+        <Link href="/" className="font-display text-xl font-extrabold tracking-tight">
+          <span className="text-chili">SNAP</span>
+          <span className="text-ink">THAI</span>
+          <span className="bg-mango px-1.5 py-0.5 ml-1 rotate-2 inline-block rounded-sm border-2 border-night">
+            HUB
           </span>
         </Link>
 
