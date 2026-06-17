@@ -12,8 +12,8 @@ const out = (f) => path.join(dir, f);
 const jobs = [
   { src: "avatar.svg", out: "avatar-1024.png", width: 1024 },
   { src: "avatar.svg", out: "avatar-512.png", width: 512 },
-  { src: "logo-horizontal.svg", out: "logo-horizontal.png", width: 1120 },
-  { src: "logo-horizontal.svg", out: "logo-horizontal@2x.png", width: 2240 },
+  { src: "logo-horizontal.svg", out: "logo-horizontal.png", width: 1160 },
+  { src: "logo-horizontal.svg", out: "logo-horizontal@2x.png", width: 2320 },
   { src: "banner.svg", out: "banner.png", width: 1500 },
 ];
 

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="280" viewBox="0 0 1120 280">
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="280" viewBox="0 0 1160 280">
   <rect x="40" y="40" width="200" height="200" rx="48" fill="#1c1410"/>
   <g transform="translate(44,47) scale(6)">
     <rect x="19.1" y="3.2" width="2.4" height="10.5" rx="1.2" fill="#f0428c" transform="rotate(18 20.3 8.4)"/>
@@ -11,7 +11,12 @@
     <circle cx="12.9" cy="21.2" r="0.9" fill="#f0428c" opacity="0.55"/>
     <circle cx="19.1" cy="21.2" r="0.9" fill="#f0428c" opacity="0.55"/>
   </g>
-  <text x="280" y="182" font-family="Kanit, sans-serif" font-weight="800" font-size="120" letter-spacing="-2">
-    <tspan fill="#e8500f">Snap</tspan><tspan fill="#2d1f16">Thai</tspan><tspan fill="#0f7b6c">Hub</tspan>
+  <text x="280" y="178" font-family="Kanit, sans-serif" font-weight="800" font-size="100">
+    <tspan fill="#e8500f">SNAP</tspan><tspan fill="#2d1f16">THAI</tspan>
   </text>
+  <g transform="rotate(3 945 140)">
+    <rect x="838" y="92" width="230" height="110" rx="12" fill="#1c1410"/>
+    <rect x="830" y="84" width="230" height="110" rx="12" fill="#ffb30f" stroke="#1c1410" stroke-width="4"/>
+    <text x="945" y="166" font-family="Kanit, sans-serif" font-weight="800" font-size="82" fill="#1c1410" text-anchor="middle">HUB</text>
+  </g>
 </svg>

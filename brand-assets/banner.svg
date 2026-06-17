@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1500" height="500" viewBox="0 0 1500 500">
   <rect width="1500" height="500" fill="#fff8f0"/>
   <rect x="0" y="476" width="1500" height="24" fill="#e8500f"/>
-  <rect x="340" y="120" width="170" height="170" rx="40" fill="#1c1410"/>
-  <g transform="translate(343,126) scale(5.1)">
+  <rect x="324" y="120" width="170" height="170" rx="40" fill="#1c1410"/>
+  <g transform="translate(327,126) scale(5.1)">
     <rect x="19.1" y="3.2" width="2.4" height="10.5" rx="1.2" fill="#f0428c" transform="rotate(18 20.3 8.4)"/>
     <rect x="8.6" y="8" width="14.8" height="4.2" rx="2.1" fill="#fff3e0"/>
     <path d="M10 12.2 H22 L21 26 Q20.8 27.6 19.2 27.6 H12.8 Q11.2 27.6 11 26 Z" fill="#e8500f"/>
@@ -13,8 +13,13 @@
     <circle cx="12.9" cy="21.2" r="0.9" fill="#f0428c" opacity="0.55"/>
     <circle cx="19.1" cy="21.2" r="0.9" fill="#f0428c" opacity="0.55"/>
   </g>
-  <text x="540" y="248" font-family="Kanit, sans-serif" font-weight="800" font-size="100" letter-spacing="-2">
-    <tspan fill="#e8500f">Snap</tspan><tspan fill="#2d1f16">Thai</tspan><tspan fill="#0f7b6c">Hub</tspan>
+  <text x="524" y="238" font-family="Kanit, sans-serif" font-weight="800" font-size="86">
+    <tspan fill="#e8500f">SNAP</tspan><tspan fill="#2d1f16">THAI</tspan>
   </text>
-  <text x="542" y="320" font-family="Kanit, sans-serif" font-weight="600" font-size="40" fill="#6b5d52">Anything from Thailand, shipped to your door.</text>
+  <g transform="rotate(3 1075 205)">
+    <rect x="987" y="162" width="196" height="96" rx="10" fill="#1c1410"/>
+    <rect x="980" y="155" width="196" height="96" rx="10" fill="#ffb30f" stroke="#1c1410" stroke-width="4"/>
+    <text x="1078" y="225" font-family="Kanit, sans-serif" font-weight="800" font-size="70" fill="#1c1410" text-anchor="middle">HUB</text>
+  </g>
+  <text x="750" y="345" font-family="Kanit, sans-serif" font-weight="600" font-size="40" fill="#6b5d52" text-anchor="middle">Anything from Thailand, shipped to your door.</text>
 </svg>
