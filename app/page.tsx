@@ -74,7 +74,7 @@ const faqs = [
   },
   {
     q: "How is the price calculated?",
-    a: "One transparent quote: the product's local price + our service fee (from 15%) + actual shipping by weight to your country. You approve before paying — no surprises.",
+    a: "One transparent quote: the product's local price + our service fee (from 20%) + actual shipping by weight to your country. You approve before paying — no surprises.",
   },
   {
     q: "How long does shipping take?",
