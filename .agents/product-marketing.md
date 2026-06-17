@@ -7,13 +7,15 @@
 **What it does:** Snap Thai Hub is a personal-shopper / proxy-buying service for Thai products. A customer submits any product found in Thailand (by uploading a photo or screenshot, pasting a shop link, or describing it), gets one all-in quote within 24 hours, pays securely, and the Bangkok team sources it — even from physical 7-Elevens, pharmacies, and markets — and ships it worldwide with tracking.
 **Product category:** Thailand proxy-buying / personal-shopper / package-forwarding service. Customers search for "buy Thai products online," "ship from Thailand," "Thai snack delivery," "Thailand personal shopper," "how to buy [specific Thai product] abroad."
 **Product type:** E-commerce service (special-order / proxy buying).
-**Business model:** Quote-based. Price = product cost + service fee (from ~15%) + actual tracked shipping by weight/destination. Customer approves the quote before paying. Card payments via Stripe (live). Ships to 190+ countries.
+**Business model:** Quote-based. Price = product cost + service fee (from 20%) + actual tracked shipping by weight/destination. Customer approves the quote before paying. Card payments via Stripe (live). Ships to 190+ countries.
 
 ## Target Audience
-**Target customers (B2C):**
-- **Homesick Thai expats / diaspora** living abroad who miss home products (strongest initial segment).
-- **Travelers / Thailand lovers** who visited and want products they discovered there.
-- **Thai food / beauty enthusiasts** worldwide (Thai snacks, K-beauty-adjacent Thai skincare).
+**Target customers (B2C) — two primary segments:**
+- **Foreigners who've visited Thailand** and now miss / want the products they discovered there.
+- **Homesick Thai expats / diaspora** living abroad who miss home products.
+
+Secondary:
+- **Thai food / beauty enthusiasts** worldwide (Thai snacks, Thai skincare).
 - **Hard-to-find seekers** — people hunting a specific, discontinued, or physical-store-only Thai item.
 **Decision-maker:** the individual consumer (single-buyer B2C).
 **Primary use case:** Get a specific Thai product you can't buy (or can't find/afford) in your own country.
@@ -96,7 +98,7 @@ B2C, single-buyer. Primary segments (not a B2B buying committee):
 **Personality:** Friendly, vibrant, trustworthy, fun, a little nostalgic, proudly Thai.
 
 ## Proof Points
-**Claims used on site:** quote within 24h; ships to 190+ countries; 100% tracked shipping; service fee from 15%.
+**Claims used on site:** quote within 24h; ships to 190+ countries; 100% tracked shipping; service fee from 20%.
 **Testimonials:** Currently sample/launch testimonials on the landing page (Mika · Tokyo, Daniel · Berlin, Priya · Sydney) — replace with real customer quotes as orders come in.
 **Value themes:**
 | Theme | Proof |
