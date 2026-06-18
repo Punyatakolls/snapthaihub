@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="856" viewBox="0 0 1640 856">
+  <rect width="1640" height="856" fill="#1c1410"/>
+  <rect x="0" y="832" width="1640" height="24" fill="#e8500f"/>
+  <rect x="0" y="0" width="1640" height="10" fill="#ffb30f"/>
+
+  <rect x="305" y="275" width="150" height="150" rx="34" fill="#1c1410" stroke="#fff8f0" stroke-width="3"/>
+  <g transform="translate(308,280) scale(4.5)">
+    <rect x="19.1" y="3.2" width="2.4" height="10.5" rx="1.2" fill="#f0428c" transform="rotate(18 20.3 8.4)"/>
+    <rect x="8.6" y="8" width="14.8" height="4.2" rx="2.1" fill="#fff3e0"/>
+    <path d="M10 12.2 H22 L21 26 Q20.8 27.6 19.2 27.6 H12.8 Q11.2 27.6 11 26 Z" fill="#e8500f"/>
+    <path d="M10.2 12.2 H21.8 L21.3 16 H10.7 Z" fill="#ffd9a8"/>
+    <circle cx="14.2" cy="19.8" r="1" fill="#3a1c0c"/>
+    <circle cx="17.8" cy="19.8" r="1" fill="#3a1c0c"/>
+    <path d="M14.1 21.8 Q16 23.4 17.9 21.8" stroke="#3a1c0c" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <circle cx="12.9" cy="21.2" r="0.9" fill="#f0428c" opacity="0.55"/>
+    <circle cx="19.1" cy="21.2" r="0.9" fill="#f0428c" opacity="0.55"/>
+  </g>
+
+  <text x="490" y="402" font-family="Kanit, sans-serif" font-weight="800" font-size="108">
+    <tspan fill="#e8500f">SNAP</tspan><tspan fill="#fff8f0">THAI</tspan>
+  </text>
+  <g transform="rotate(3 1200 388)">
+    <rect x="1085" y="336" width="252" height="120" rx="14" fill="#e8500f"/>
+    <rect x="1075" y="326" width="252" height="120" rx="14" fill="#ffb30f" stroke="#fff8f0" stroke-width="5"/>
+    <text x="1201" y="418" font-family="Kanit, sans-serif" font-weight="800" font-size="92" fill="#1c1410" text-anchor="middle">HUB</text>
+  </g>
+
+  <text x="820" y="560" font-family="Kanit, sans-serif" font-weight="700" font-size="48" fill="#fff8f0" text-anchor="middle">Anything from Thailand, shipped to your door</text>
+  <text x="820" y="628" font-family="Kanit, sans-serif" font-weight="600" font-size="32" fill="#ffb30f" text-anchor="middle">Snap it. We ship it.   ·   Worldwide   ·   Free quote in 24h</text>
+  <text x="820" y="726" font-family="Kanit, sans-serif" font-weight="700" font-size="34" fill="#fff8f0" text-anchor="middle">snapthaihub.com</text>
+</svg>
