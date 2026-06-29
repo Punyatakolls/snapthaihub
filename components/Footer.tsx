@@ -53,7 +53,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://facebook.com/snapthaihub"
+              href="https://www.facebook.com/profile.php?id=61590805855259"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Snap Thai Hub on Facebook"
